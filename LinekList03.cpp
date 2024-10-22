@@ -29,7 +29,7 @@ int main(){
       while(temp->next != NULL){
         temp = temp->next;
       }
-      temp->next = newNode;
+      // temp->next = newNode;
     }
   } 
 Node *temp = Head;
