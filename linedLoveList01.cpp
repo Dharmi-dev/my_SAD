@@ -13,14 +13,26 @@ class Node{
     this->next = NULL;
 
   }
+  //destructor
+  ~Node(){
+    int value = this-> data;
+    if(this->next != NULL){
+      delete next;
+      this->next = NULL;
+    }
+    cout<<"memory is free for node with data "<< value << endl;
+  }
 
 
 };
+
+
 
 void insertStart(Node*& head, int val){
   Node* newNode = new Node(val);
   newNode->next = head;
   head = newNode;
+  cout<<"inserted"<<newNode->data<<"at the starting"<<endl;
 }
 
 void insertEnd(Node*& head, int val){
@@ -31,7 +43,7 @@ void insertEnd(Node*& head, int val){
     temp = temp->next;
   }
   temp->next = newNode;
-  cout<<"inside the insertEnd " <<endl;
+  cout<<"inserted"<<newNode->data<<"at the end"<<endl;
 }
 
 void insertBetween(Node*& head, int whereTOAdd, int whatToAdd){
@@ -43,6 +55,7 @@ void insertBetween(Node*& head, int whereTOAdd, int whatToAdd){
   Node* adrsNext = temp->next;
   temp->next = newNode;
   newNode->next = adrsNext;
+  cout<<"inserted "<< newNode->data<<"in between"<<endl;
   
 }
 
@@ -55,9 +68,38 @@ void print(Node* head){
   }
 }
 
+void deleteNode(int position, Node*& head){
+  //deleting first or start node
+  if(position == 1){
+    Node* temp = head;
+    head = head->next;
+    //memory free
+    temp-> next =  NULL;
+    delete temp;
+
+    
+  }
+  else{
+    //deleting any middle Node or last node
+    Node* curr = head;
+    Node* prev = NULL;
+    int cnt = 1;
+    while(cnt< position){
+      prev = curr;
+      curr = curr->next;
+      cnt ++;
+    }
+    prev -> next = curr -> next;
+    curr->next = NULL;
+    delete curr;
+
+
+  }
+}
+
 
 int main(){
-  Node* head;
+  Node* head = NULL;
   head = new Node(5);
   print(head);
   cout<<endl;
@@ -71,6 +113,12 @@ int main(){
   cout<<endl;
 
   insertBetween(head,5,17);
+  print(head);
+
+  insertBetween(head,17,25);
+  print(head);
+
+  deleteNode(4, head);
   print(head);
 
 
