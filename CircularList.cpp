@@ -2,139 +2,103 @@
 using namespace std;
 
 
-class Node {
-public:
-    int data;      
-    Node* next;    
+class Node{
+    public:
+    int data;
+    Node* next;
+
+
+    Node(int val){
+        this->data = val;
+        this->next = NULL;
+    }
+
+    ~Node(){
+        int value = this->data;
+        if(this->next != NULL){
+            delete next;
+            next = NULL;
+
+        }
+        cout<<"memory is free from node with data : "<<value<<endl;
+
+    }
 
     
-    Node(int value) {
-        this->data = value;
-        this->next = nullptr;
-    }
+
+
+
 };
 
 
-class CircularLinkedList {
-private:
-    Node* last;    
-
-public:
+void print(Node* tail){
+    Node* temp = tail;
     
-    CircularLinkedList() {
-        last = nullptr;
+    do{
+        cout<<tail->data<< " ";
+        tail = tail->next;
+
     }
+    while(tail != temp);
+}
 
-    void insert(int val) {
-        Node* newNode = new Node(val);  
 
-        if (last == nullptr) {        
-            newNode->next = newNode;  
-            last = newNode;           
-        } else {                      
-            newNode->next = last->next; 
-            last->next = newNode;      
-            last = newNode;             
-        }
-        cout << "Inserted "<<val<<endl;
-    }
+void insertNode(Node* &tail,int  element, int val){
+         if(tail == NULL){
+            Node* newNode = new Node(val);
+            tail = newNode;
+            newNode->next = newNode;
+         }
 
-    
-    void remove(int x) {
-        if (last == nullptr) { 
-            cout << "List is empty. Cannot remove " << x <<endl;
-            return;
-        }
+         else{
+            Node* curr = tail;
+            while(curr->data != element){
+                curr = curr->next;
 
-        Node* curr = last->next; 
-        Node* prev = last;      
-
-        
-        do {
-            if (curr->data == x) { 
-                if (curr == last && curr->next == last) { 
-                    last = nullptr; 
-                } else if (curr == last) {
-                    prev->next = curr->next; 
-                    last = prev;            
-                } else { 
-                    prev->next = curr->next; 
-                }
-                delete curr; 
-                cout << "Removed " << x << " from the list.\n";
-                return;
             }
-            prev = curr;       
-            curr = curr->next;
-        } while (curr != last->next); 
+            
+            Node* newNode = new Node(val);
 
-        cout << "Element " << x << " not found in the list.\n";
+            newNode->next = curr->next;
+            curr->next = newNode;
+
+         }
     }
 
-    
-    Node* search(int x) {
-        if (last == nullptr) { 
-            cout << "List is empty.\n";
-            return nullptr;
+    void deleteNode( Node* &tail,int element){
+        if(tail == NULL){
+            cout<< "the list is empty"<< endl;
         }
-
-        Node* curr = last->next; 
-
         
-        do {
-            if (curr->data == x) {
-                cout << "Element " << x << " found in the list.\n";
-                return curr;
-            }
-            curr = curr->next; 
-        } while (curr != last->next);
+        Node* curr = tail;
+        Node* prev = NULL;
 
-        cout << "Element " << x << " not found in the list.\n";
-        return nullptr; 
-    }
-
-    
-    void display() {
-        if (last == nullptr) { 
-            cout << "List is empty.\n";
-            return;
+        while(curr->data != element){
+            prev = curr;
+            curr = curr->next;
+        }
+        
+// 1 Node linked list
+        if(curr == prev){
+            tail = prev;
         }
 
-        Node* curr = last->next; 
-        cout << "List elements: ";
-
-     
-        do {
-            cout << curr->data << " ";
-            curr = curr->next;
-        } while (curr != last->next); 
-
-        cout << endl;
+        prev->next = curr->next;
+        curr->next = NULL;
+        delete curr;
     }
-};
 
-int main() {
-    CircularLinkedList list;
 
-    
-    list.insert(10);
-    list.insert(20);
-    list.insert(30);
-    list.insert(40);
+int main(){
+    Node* tail = NULL;
+    insertNode(tail,5,3);
+    print(tail);
 
-    
-    list.display();
+    insertNode(tail,3,7);
+    print(tail);
 
-   
-    list.search(20);
-    list.search(50); 
+    delete tail;
+    cout<<"tail has been deleted";
 
-   
-    list.remove(20);
-    list.remove(50); 
 
-   
-    list.display();
-
-    return 0;
 }

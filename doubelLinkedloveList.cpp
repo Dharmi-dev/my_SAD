@@ -98,6 +98,47 @@ void insertPosition(Node* &head, int position, int val){
   cout<<" added "<<val<<" at position "<<position<<endl;
 }
 
+void DeleteNode(Node* &head, int position){
+  if(position == 1){
+    Node* temp = head;
+    head = head->next;
+    head->prev = NULL;
+    temp->next = NULL;
+    delete temp;
+
+  }
+
+  // Node* curr = head;
+  // int cnt = 1;
+  // while(cnt < position){
+  //   curr = curr->next;
+  //   cnt++;
+  // }
+
+  // curr->next = curr->next->next;
+  // curr->next->prev->prev = NULL;
+  // curr->next->prev->next = NULL;
+  // curr->next->prev = curr;
+
+  Node* curr = head;
+  Node* prev = NULL;
+  int cnt = 1;
+
+  while(cnt < position){
+    prev = curr;
+    curr = curr->next;
+    cnt++;
+  }
+
+  prev->next = curr->next;
+  curr->next->prev = prev;
+  curr->next = NULL;
+  curr->prev = NULL;
+  delete curr;
+  
+
+}
+
 
 
 
