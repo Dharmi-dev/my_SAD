@@ -31,17 +31,25 @@ class Node{
 };
 
 
-void print(Node* tail){
-    Node* temp = tail;
+// void print(Node* tail){
+//     Node* temp = tail;
     
+//     do{
+//         cout<<tail->data<< " ";
+//         tail = tail->next;
+
+//     }
+//     while(tail != temp);
+// }
+
+void print(Node* tail){
+    if (tail == NULL) return;
+    Node* temp = tail;
     do{
-        cout<<tail->data<< " ";
-        tail = tail->next;
-
-    }
-    while(tail != temp);
+        cout << temp->data << " ";
+        temp = temp->next;
+    } while(temp != tail);
 }
-
 
 void insertNode(Node* &tail,int  element, int val){
          if(tail == NULL){

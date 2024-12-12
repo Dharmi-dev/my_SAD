@@ -97,25 +97,25 @@ void print(Node* head){
 //   }
 // }
 
-// void deleteNode(int position, Node*& head){
-//   if (position ==1){
-//     Node* temp = head;
-//     head = head->next;
-//     temp->next = NULL;
-//     delete temp;
-//   }
+void deleteNode(int position, Node*& head){
+  if (position ==1){
+    Node* temp = head;
+    head = head->next;
+    temp->next = NULL;
+    delete temp;
+  }
 
-//   else{
-//     Node* curr = head;
-//     Node* prev = NULL;
-//     int cnt = 1;
-//     while(cnt < position){
-//       prev = curr;
-//       curr = curr->next;
-//       cnt++;
-//     }
-//     }
-// }
+  else{
+    Node* curr = head;
+    Node* prev = NULL;
+    int cnt = 1;
+    while(cnt < position){
+      prev = curr;
+      curr = curr->next;
+      cnt++;
+    }
+    }
+}
 
 
 int main(){
