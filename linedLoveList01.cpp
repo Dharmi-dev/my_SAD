@@ -117,6 +117,21 @@ void deleteNode(int position, Node*& head){
     }
 }
 
+Node* reverseList(Node* &head){
+  Node* prevNode = NULL;
+  Node* currNode = head;
+  Node* nextNode = NULL;
+
+  while(currNode != NULL){
+    nextNode = currNode->next;
+    currNode->next = prevNode;
+    prevNode = currNode;
+    currNode = nextNode;
+
+  }
+  return prevNode; // new head
+}
+
 
 int main(){
   Node* head = NULL;

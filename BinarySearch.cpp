@@ -19,7 +19,7 @@ using namespace std;
 // }
 int binarySearch(int arr[], int n, int key){
     int s = 0;
-    int e = 0;
+    int e = n - 1;
     while(s<=e){
         int mid = (s+e)/2;
         if(arr[mid]==key) return mid;
@@ -32,6 +32,18 @@ int binarySearch(int arr[], int n, int key){
     }
     return -1;
 }
+
+// int binarySearch(int arr[], int n, int key){
+//     int s,e = 0;
+
+//     while(s<=e){
+//         int mid = (e+s)/2;
+//         if(arr[mid] == key) return mid;
+//         if(arr[mid]< key) s = mid+1;
+//         else e = mid-1;
+//     }
+//      return -1;
+// }
 
 
 
@@ -50,6 +62,11 @@ int main(){
     cout<<"enter the key to find : "<<endl;
     cin>>key;
     
-    binarySearch(arr,n,key);
+    int result = binarySearch(arr, n, key);
+    if(result != -1) {
+        cout << "Element found at index: " << result << endl;
+    } else {
+        cout << "Element not found" << endl;
+    }
     
 }
